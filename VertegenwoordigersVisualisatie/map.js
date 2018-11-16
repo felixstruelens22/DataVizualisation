@@ -2,6 +2,8 @@ var margin = { top:50, left: 50, right: 50, bottom: 50},
     height = window.innerHeight,
     width = window.innerWidth;
 
+var colors= ["red","green","blue","yellow","orange"];
+
 var svg = d3.select("#map")
   .append("svg")
   .attr("height", height)
@@ -38,6 +40,8 @@ function ready (error,data,locations) {
         .data(locations)
         .enter().append("circle")
         .attr("r",3)
+        .attr("fill", "green")
+        .attr("stroke", "black")
         .attr("cx", function(d){
             var coords = projection([d.Y, d.X])
             return coords[0];
@@ -68,6 +72,23 @@ function ready (error,data,locations) {
         .data(locations)
         .enter().append("text")
         .attr("class","locationnames")
+        .attr("fill",function(d){
+            if (d.vertegenwoordiger === "nape") {
+                return colors[0];
+            }
+            else if (d.vertegenwoordiger === "joha"){
+                return colors[1];
+            }
+            else if (d.vertegenwoordiger === "sebi"){
+                return colors[2];
+            }
+            else if(d.vertegenwoordiger === "heco"){
+                return colors[3];
+            }
+            else if (d.vertegenwoordiger === "stva"){
+                return colors[4];
+            }
+        })
         .attr("x", function(d){
             var coords = projection([d.Y, d.X])
             return coords[0];
